@@ -1,0 +1,45 @@
+.footer {
+
+	&__container {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		@include adaptiveValue("padding-bottom", 13, 6);
+		@include adaptiveValue("padding-top", 13, 6);
+	}
+
+	&__copyright {}
+
+	&__title {
+		@include adaptiveValue("font-size", 18, 12);
+		color: $inactiveColor;
+		line-height: 1.5;
+
+		>span.name {
+			display: none;
+		}
+
+		@media (min-width:$mobile) {
+
+			>span.flag {
+				display: none;
+			}
+
+			>span.name {
+				display: inline;
+			}
+		}
+	}
+
+	&__link {
+		position: relative;
+		color: $mainColor;
+
+		&:hover {
+			color: $hoverColor;
+			transition: all 0.3s ease-in-out 0.0s;
+		}
+	}
+}

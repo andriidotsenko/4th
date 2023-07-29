@@ -1,0 +1,215 @@
+//tabs
+.tabs {
+	&__nav-btn {
+		&:active {
+			opacity: 0.4;
+		}
+
+		&.active {
+			position: relative;
+			color: $mainColor;
+		}
+	}
+
+	&__item {
+		@include adaptiveValue("padding-top", 190, 80);
+		display: none;
+
+		&.active {
+			display: block;
+		}
+	}
+}
+
+//===================================================
+//tooggles
+
+.checkbox {
+	display: inline-block;
+	z-index: 1;
+
+	&__inp {
+		position: absolute;
+		opacity: 0;
+		width: 0;
+		height: 0;
+
+		&:checked+.checkbox__inner {
+			color: $mainColor;
+
+			&::before {
+				background-color: $onColor;
+				transition: all 0.2s ease-in-out 0.05s;
+				border: rem(1) solid $mainColor;
+			}
+
+			&::after {
+				left: rem(28);
+				transition: all 0.25s ease-in-out 0.0s;
+				border: rem(1) solid $mainColor;
+			}
+
+			&:hover {
+				color: $hoverColor;
+				transition: all 0.25s ease-in-out 0.0s;
+			}
+		}
+	}
+
+	&__inner {
+		@include adaptiveValue("font-size", 18, 16);
+
+		line-height: 1.5;
+		letter-spacing: rem(3.6);
+		display: inline-block;
+		position: relative;
+		padding: rem(5) rem(5) rem(5) rem(60);
+		color: $inactiveColor;
+		transition: color 0.2s ease-in 0.0s;
+
+		&:hover {
+			color: $hoverColor;
+			transition: all 0.2s ease-in 0.0s;
+		}
+
+		&:active {
+			opacity: 0.2;
+		}
+
+		&::before,
+		&::after {
+			content: "";
+			display: block;
+			position: absolute;
+			height: rem(22);
+			left: 0;
+			top: 50%;
+			transform: translate(0, -50%);
+			border-radius: rem(11);
+			border: rem(1) solid $inactiveColor;
+			transition: all 0.2s ease-in 0.05s;
+		}
+
+		&::before {
+			width: rem(50);
+			background-color: $offColor;
+		}
+
+		&::after {
+			width: rem(22);
+			background-color: $inputColor;
+		}
+	}
+}
+
+//=======================================================
+
+.radio {
+	display: inline-block;
+	z-index: 1;
+
+	&__inp {
+		position: absolute;
+		opacity: 0;
+		width: 0;
+		height: 0;
+
+		&:checked+.radio__inner {
+			color: $mainColor;
+
+			&::after {
+				left: rem(3);
+				height: rem(14);
+				width: rem(14);
+				background-color: $mainColor;
+				transition: all 0.33s ease-in-out 0.0s;
+			}
+		}
+	}
+
+	&__inner {
+		cursor: pointer;
+		text-wrap: no-wrap;
+		position: relative;
+		min-width: 100%;
+		line-height: 1.8;
+		@include adaptiveValue("font-size", 18, 16);
+		letter-spacing: rem(3.6);
+
+		display: inline-block;
+
+		color: $inactiveColor;
+		padding-left: rem(28);
+		transition: color 0.2s ease-in 0.0s;
+
+		&:hover {
+			color: $hoverColor;
+			transition: all 0.2s ease-in 0.0s;
+		}
+
+		&:active {
+			transition: all 0 ease-in 0s;
+			opacity: 0.5;
+
+			&:hover {
+				color: $hoverColor;
+			}
+		}
+
+		&::before,
+		&::after {
+			content: "";
+			display: block;
+			position: absolute;
+			left: 0;
+			top: 50%;
+			transform: translate(0, -50%);
+			border-radius: rem(11);
+			transition: all 0.2s ease-in 0.05s;
+		}
+
+		&::before {
+			height: rem(20);
+			width: rem(20);
+			background-color: $inputColor;
+			border: rem(1) solid $inactiveColor;
+		}
+
+		&::after {
+			left: 50%;
+			height: rem(1);
+			width: rem(1);
+			border-radius: 50%;
+			background-color: transparent;
+		}
+	}
+}
+
+//========================================================
+
+.title {
+	@include adaptiveValue("font-size", 24, 18);
+	@include adaptiveValue("margin-bottom", 24, 12);
+}
+
+.button {
+	color: $mainColor;
+	font-size: rem(24);
+	background-color: $inputColor;
+	border: rem(1) solid $mainColor;
+	border-radius: rem(5);
+
+	text-align: center;
+
+	letter-spacing: rem(4.32);
+
+	&:hover {
+		transition: all 0.2s ease 0.0s;
+		background: $mainGrad;
+		box-shadow: 0 0 rem(10) rem(2) rgba(0, 0, 0, 0.05);
+	}
+
+	&:active {
+		transform: translate(rem(-0.5), rem(0.5));
+	}
+}

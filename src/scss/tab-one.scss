@@ -1,0 +1,383 @@
+.tab-calculator {
+	&__form {}
+
+	&__results {}
+}
+
+.form {
+	&__items {
+		@include adaptiveValue("margin-bottom", 84, 24);
+		font-size: rem(18);
+		width: 100%;
+		display: grid;
+		@include adaptiveValue("gap", 95, 2, 1, 4096, 980);
+		margin: 0 auto;
+		grid-template-columns: minmax(rem(330), 2fr) minmax(rem(330), 2fr) minmax(rem(154), 1fr) minmax(rem(154), 1fr);
+		grid-template-rows: minmax(rem(138), 1fr);
+	}
+
+	@media (max-width:$tablet) {
+		&__items {
+			grid-template-columns: minmax(rem(330), 1fr) minmax(rem(330), 1fr);
+			grid-template-rows: repeat(2, minmax(rem(138), 1fr));
+			@include adaptiveValue("gap", 24, 16);
+		}
+	}
+
+	@media (max-width:$mobile) {
+		&__items {
+			grid-template-columns: repeat(2, (minmax(rem(90), 1fr)));
+			grid-template-rows: repeat(3, minmax(rem(150), 1fr));
+			@include adaptiveValue("gap", 24, 16);
+
+			grid-template-areas: "A A" "B B" "C D";
+
+			.input-from {
+				grid-area: A;
+			}
+
+			.input-to {
+				grid-area: B;
+			}
+
+			.presets {
+				grid-area: C;
+			}
+
+			.allow {
+				grid-area: D;
+			}
+		}
+	}
+
+	&__item {
+		padding: 0 rem(5);
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+	}
+}
+
+.input-from,
+.input-to {
+	&__actions {}
+
+	&__title {
+		@include adaptiveValue("font-size", 24, 18);
+		@include adaptiveValue("margin-bottom", 24, 12);
+	}
+
+	&__datepicker {
+		@include adaptiveValue("margin-bottom", 28, 14);
+	}
+
+	&__checkbox {}
+}
+
+.input-to {
+	&__checkbox {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+}
+
+.datepicker {
+	&__wrapper {
+		position: relative;
+		overflow: hidden;
+		border-radius: rem(5);
+		border: rem(1) solid $mainColor;
+	}
+
+	&__input {
+		display: flex;
+		position: relative;
+		justify-content: center;
+		align-items: center;
+		-webkit-appearance: none;
+		appearance: none;
+		cursor: pointer;
+		color: $mainColor;
+		background: $inputColor;
+		
+		@include adaptiveValue("font-size", 24, 18);
+		@include adaptiveValue("padding-top", 16, 8);
+		@include adaptiveValue("padding-bottom", 16, 8);
+		padding-right: rem(60);
+		text-align: center;
+		min-height: rem(60);
+		min-width: 100%;
+		cursor: text;
+
+		&::-webkit-calendar-picker-indicator {
+			cursor: pointer;
+			background: transparent;
+			padding: 6px;
+			transform: scale(2) translateX(rem(27));
+			z-index: 2;
+		}
+
+		&::after {
+			content: "\e901";
+			@extend %ic;
+			display: flex;
+
+			justify-content: center;
+			align-items: center;
+			position: absolute;
+			width: rem(60);
+			height: 100%;
+			background: $onColor;
+			right: 0;
+			top: 0;
+			border-left: rem(1) solid $mainColor;
+		}
+
+		&:hover {
+			&::after {
+				color: $hoverColor;
+				background: $onHoverColor;
+			}
+		}
+	}
+
+}
+
+.result {
+
+	@include adaptiveValue("margin-bottom", 84, 56);
+
+	display: grid;
+	grid-template-columns: minmax(rem(330), 1fr) 1fr;
+	@include adaptiveValue("gap", 60, 50);
+	padding: 0 rem(5);
+
+	@media (max-width:$mobile) {
+		grid-template-columns: minmax(rem(280), 1fr);
+
+	}
+
+	&__buttons {
+		display: grid;
+		grid-template-columns: minmax(rem(228), 1fr) 1fr;
+		@include adaptiveValue("gap", 12, 4);
+
+	}
+
+	&__calc {
+
+
+		@include adaptiveValue("font-size", 24, 18);
+	}
+
+	&__clear {
+		font-size: 32px;
+		position: relative;
+		width: rem(60);
+		height: rem(60);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+
+
+		&::before {
+			position: absolute;
+			transform: translate(rem(2), rem(2));
+		}
+	}
+
+	&__outputs {
+		display: flex;
+		justify-content: center;
+		@include adaptiveValue("font-size", 50, 46);
+		align-items: center;
+		font-weight: 700;
+		text-shadow: 4px 4px 0px $offColor;
+	}
+
+	@media (max-width:$mobile) {
+		&__outputs {
+			justify-content: center;
+		}
+
+		&__buttons {
+			grid-template-columns: 1fr rem(60);
+		}
+	}
+}
+
+.actions {
+	display: inline-flex;
+	justify-content: flex-end;
+	align-items: center;
+	color: $inactiveColor;
+	@include adaptiveValue("font-size", 16, 13);
+	font-weight: 500;
+
+	&__item {
+		@include adaptiveValue("padding", 5, 7);
+
+		&:hover {
+			color: $hoverColor;
+		}
+	}
+}
+
+//========================================================================================================================================================
+
+
+.results {
+
+	&__titles {
+		display: grid;
+		grid-template-columns: 1fr 1fr 3fr;
+
+		&:not(:last-child) {
+			@include adaptiveValue("margin-bottom", 16, 8);
+		}
+
+		>.title-range {
+			display: none;
+		}
+	}
+
+	&__title {
+		word-break: break-word;
+		padding-left: rem(5);
+		padding-right: rem(5);
+		text-align: center;
+		@include adaptiveValue("font-size", 24, 18);
+	}
+
+	&__list {
+
+		&::after {
+			content: "THE END <3";
+			text-align: center;
+			display: block;
+			@include adaptiveValue("padding-top", 45, 12);
+			@include adaptiveValue("margin-bottom", 24, 8);
+			@include adaptiveValue("font-size", 24, 14);
+		}
+	}
+
+	&__item {
+		display: grid;
+		grid-template-columns: 1fr 1fr 3fr;
+	}
+}
+
+.item-results {
+	cursor: text;
+	@include adaptiveValue("padding", 14.51, 11.5);
+	text-align: center;
+	background: rgba(255, 255, 255, 0.76);
+
+	
+	box-shadow: 0 rem(0) rem(1) rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(rem(6));
+	-webkit-backdrop-filter: blur( rem(6));
+	border-bottom: 1px solid rgba(255, 255, 255, 0.0);
+
+	border: rem(1) solid $mainColor;
+	justify-content: center;
+	align-items: center;
+	@include adaptiveValue("font-size", 24, 16);
+	border-radius: rem(5);
+
+	&:not(:last-child) {
+		@include adaptiveValue("margin-bottom", 16, 8);
+	}
+
+	&__start {
+		position: relative;
+		@include adaptiveValue("padding-left", 16, 8);
+		@include adaptiveValue("padding-right", 16, 8);
+
+		&::after {
+			content: '';
+			user-select: none;
+			position: absolute;
+			border-bottom: rem(1) dotted #bebebe;
+
+			@include adaptiveValue("height", 0, 0);
+			@include adaptiveValue("width", 24, 12);
+
+			top: 50%;
+			right: 0;
+			background-color: $inactiveColor;
+			transform: translate(50%, -50%);
+		}
+
+	}
+
+	&__end {
+
+		@include adaptiveValue("padding-left", 16, 8);
+		@include adaptiveValue("padding-right", 16, 8);
+	}
+
+	&__content {
+		// text-align: justify ;
+		// margin: 0 auto ;
+		border-left: rem(0.5) dashed #bebebe;
+		word-break: break-all;
+		@include adaptiveValue("padding-left", 16, 8);
+		@include adaptiveValue("padding-right", 16, 8);
+	}
+}
+
+//========================================================================================================================================================
+
+@media (max-width:$mobileSmall ) {
+	.results {
+		&__item {
+			grid-template-columns: repeat(6, 1fr);
+			grid-template-rows: 1fr 1fr;
+			grid-template-areas: "L L S S S S" "V V S S S S ";
+			@include adaptiveValue("row-gap", 8, 4);
+			padding: rem(4);
+		}
+
+		&__titles {
+			grid-template-columns: 2fr 4fr;
+
+			>.title-range {
+				display: block;
+			}
+			>.title-start {
+				display: none;
+			}
+			>.title-end{
+				display: none;
+			}
+		}
+
+		.item-results {
+			&__start {
+				grid-area: L;
+
+				&::after {
+					display: none;
+				}
+			}
+
+			&__end {
+				border-right: none;
+				grid-area: V;
+			}
+
+			&__content {
+
+				grid-area: S;
+				border-left: rem(1) dashed $inactiveColor;
+				min-height: 100%;
+				@include adaptiveValue("padding-top", 24, 15);
+				@include adaptiveValue("padding-bottom", 24, 15);
+
+			}
+		}
+	}
+}

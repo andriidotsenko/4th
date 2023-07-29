@@ -1,0 +1,166 @@
+.header {
+	background: $headerGradient;
+	position: fixed;
+	top: 0;
+	left: 0;
+	min-width: 100%;
+	z-index: 5;
+
+
+box-shadow: 0 rem(0) rem(1) rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(rem(6));
+-webkit-backdrop-filter: blur( rem(6));
+border-bottom: 1px solid rgba(255, 255, 255, 0.0);
+
+	&__container {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		@include adaptiveValue("gap", 16, 4);
+		@include adaptiveValue("padding-bottom", 46, 21);
+		@include adaptiveValue("padding-top", 46, 21);
+	}
+
+	&__logo {
+		display: none;
+
+		@media (min-width:rem(389.98)) {
+			display: block;
+			transition: all 0.66s ease 3s;
+
+			&:hover {
+				transition: all 0.2s ease-in-out 0.0s;
+				animation-timing-function: cubic-bezier(.58, .21, .5, .86);
+				transform: rotateY(180deg) rotateX(-360deg) scale(0.9);
+			}
+		}
+	}
+
+	&__link {}
+
+	&__img {
+		@include adaptiveValue("height", 44, 24);
+	}
+
+	&__menu {}
+
+	&__social {}
+}
+
+.menu {
+	&__body {
+		display: flex;
+		flex-direction: row;
+	}
+
+	&__list {
+		display: flex;
+		flex-direction: row;
+
+		@include adaptiveValue("gap", 16, 2);
+	}
+
+	&__item {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__button {
+		position: relative;
+		text-transform: lowercase;
+		color: $inactiveColor;
+		@include adaptiveValue("font-size", 24, 18);
+		@include adaptiveValue("padding", 7.515, 4);
+		transition: all 0.2s ease-in-out 0.0s;
+
+
+
+		&:hover {
+			color: $hoverColor;
+			transition: all 0.3s ease-in-out 0.0s;
+		}
+	}
+}
+
+
+
+.social {
+
+	&__list {
+		display: flex;
+		flex-direction: row;
+		@include adaptiveValue("gap", 6, 0);
+	}
+
+	&__link {
+		@include adaptiveValue("font-size", 24, 18);
+		display: block;
+		@include adaptiveValue("padding", 10, 4);
+		transition: all 0.2s ease-in-out 0.0s;
+
+		&:hover {
+			color: $hoverColor;
+			transition: all 0.3s ease-in-out 0.0s;
+		}
+
+	}
+}
+
+
+
+//====================================================================================================
+
+//Burger
+/*
+.icon-menu {
+	display: none;
+	@media (max-width: $mobile) {
+		display: block;
+		position: relative;
+		width: rem(30);
+		height: rem(18);
+		z-index: 5;
+		@media (any-hover: none) {
+			cursor: default;
+		}
+		span,
+		&::before,
+		&::after {
+			content: "";
+			transition: all 0.3s ease 0s;
+			right: 0;
+			position: absolute;
+			width: 100%;
+			height: rem(2);
+			background-color: #000;
+		}
+		&::before {
+			top: 0;
+		}
+		&::after {
+			bottom: 0;
+		}
+		span {
+			top: calc(50% - rem(1));
+		}
+		.menu-open & {
+			span {
+				width: 0;
+			}
+			&::before,
+			&::after {
+			}
+			&::before {
+				top: calc(50% - rem(1));
+				transform: rotate(-45deg);
+			}
+			&::after {
+				bottom: calc(50% - rem(1));
+				transform: rotate(45deg);
+			}
+		}
+	}
+}
+*/
