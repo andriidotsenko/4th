@@ -168,7 +168,7 @@
 	&__calc {
 
 
-		@include adaptiveValue("font-size", 24, 18);
+		@include adaptiveValue("font-size", 24, 24);
 	}
 
 	&__clear {
@@ -191,7 +191,7 @@
 	&__outputs {
 		display: flex;
 		justify-content: center;
-		@include adaptiveValue("font-size", 50, 46);
+		@include adaptiveValue("font-size", 50, 16);
 		align-items: center;
 		font-weight: 700;
 		text-shadow: 4px 4px 0px $offColor;
