@@ -32,10 +32,8 @@ function onTabClick(item) {
 }
 
 document.querySelectorAll(".tabs__nav-btn")[0].click()
+
 //========================================================================================================================================================
-
-
-
 
 const resultOutput = document.querySelector('.result__outputs');
 const formCalculator = document.querySelector('.tab-calculator__form');
@@ -47,10 +45,13 @@ const checkbox1Label = document.querySelector('.input-from__checkbox .checkbox__
 const checkbox2 = document.getElementById('checkbox_2');
 const checkbox2Label = document.querySelector('.input-to__checkbox .checkbox__inner');
 
+const presetsRadios = document.querySelectorAll('.presets__radio input[name="radio-p"]');
+const allowRadios = document.querySelectorAll('.allow__radio input[name="radio-allow"]');
 
 checkbox1Label.textContent = checkbox1.checked ? 'Including' : 'No including';
 checkbox2Label.textContent = checkbox2.checked ? 'Including' : 'No including';
 
+resultOutput.innerText = 'enter dates!';
 formCalculator.addEventListener("submit", setCalculatorResult);
 
 checkbox1.addEventListener('change', toggleText);
@@ -59,7 +60,15 @@ checkbox2.addEventListener('change', toggleText);
 checkbox1.addEventListener('change', handleCheckboxChange);
 checkbox2.addEventListener('change', handleCheckboxChange);
 
+presetsRadios.forEach(radio => {
+	radio.addEventListener('change', handleRadioChange);
+});
 
+allowRadios.forEach(radio => {
+	radio.addEventListener('change', handleRadioChange);
+});
+
+//========================================================================================================================================================
 
 function handleCheckboxChange() {
 	if (dateOne.value && dateTwo.value) {
@@ -67,7 +76,7 @@ function handleCheckboxChange() {
 	}
 }
 
-//========================================================================================================================================================
+//=======================================================================================================================================================
 
 function setCalculatorResult(event) {
 	event.preventDefault();
@@ -84,6 +93,7 @@ function setCalculatorResult(event) {
 		secondDate = new Date(secondDate);
 		secondDate.setDate(secondDate.getDate() + 1);
 	}
+
 	if (isNaN(firstDate) || isNaN(secondDate)) {
 		resultOutput.innerText = 'Invalid date input';
 		return;
@@ -95,16 +105,16 @@ function setCalculatorResult(event) {
 	const checkedPreset = document.querySelector('.presets__radio input[name="radio-p"]:checked');
 	const checkedAllow = document.querySelector('.allow__radio input[name="radio-allow"]:checked');
 
-	let timeUnit = 'd.'; // Всегда выводим в днях
+	let timeUnit = 'd.';
 
 	if (checkedPreset && checkedPreset.id === 'p_radio_2') {
-		daysDifference *= 24; // Переводим в часы
+		daysDifference *= 24;
 		timeUnit = 'h.';
 	} else if (checkedPreset && checkedPreset.id === 'p_radio_3') {
-		daysDifference *= 24 * 60; // Переводим в минуты
+		daysDifference *= 24 * 60;
 		timeUnit = 'm.';
 	} else if (checkedPreset && checkedPreset.id === 'p_radio_4') {
-		daysDifference *= 24 * 60 * 60; // Переводим в секунды
+		daysDifference *= 24 * 60 * 60;
 		timeUnit = 's.';
 	}
 
@@ -118,14 +128,12 @@ function setCalculatorResult(event) {
 		daysDifference -= weekdays;
 	}
 
-
 	if (!isNaN(daysDifference)) {
 		const formattedDaysDifference = daysDifference.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 		resultOutput.innerText = `= ${formattedDaysDifference} ${timeUnit}`;
 	} else {
 		resultOutput.innerText = 'Calculation error';
 	}
-
 }
 
 //========================================================================================================================================================
@@ -139,12 +147,12 @@ if (addMonthButton && addWeekButton) {
 			const currentDate = new Date(dateOne.value);
 			currentDate.setMonth(currentDate.getMonth() + 1);
 			dateTwo.value = formatDate(currentDate);
-			setCalculatorResult(event); // Пересчитать результат
+			setCalculatorResult(event);
 		} else if (dateTwo.value && !dateOne.value) {
 			const currentDate = new Date(dateTwo.value);
 			currentDate.setMonth(currentDate.getMonth() + 1);
 			dateOne.value = formatDate(currentDate);
-			setCalculatorResult(event); // Пересчитать результат
+			setCalculatorResult(event);
 		}
 	});
 
@@ -154,17 +162,17 @@ if (addMonthButton && addWeekButton) {
 			const currentDate = new Date(dateTwo.value);
 			currentDate.setDate(currentDate.getDate() + 7);
 			dateOne.value = formatDate(currentDate);
-			setCalculatorResult(event); // Пересчитать результат
+			setCalculatorResult(event);
 		} else if (dateOne.value && !dateTwo.value) {
 			const currentDate = new Date(dateOne.value);
 			currentDate.setDate(currentDate.getDate() + 7);
 			dateTwo.value = formatDate(currentDate);
-			setCalculatorResult(event); // Пересчитать результат
+			setCalculatorResult(event);
 		}
 	});
 }
 
-
+//========================================================================================================================================================
 
 function formatDate(date) {
 	const year = date.getFullYear();
@@ -199,35 +207,20 @@ function calculateWeekdays(startDate, days) {
 	return weekdays;
 }
 
-resultOutput.innerText = 'enter dates!';
 
 //========================================================================================================================================================
 
 function toggleText(event) {
-
 	const checkbox = event.target;
-
 	let label;
 	if (checkbox === checkbox1) {
 		label = checkbox1Label;
 	} else if (checkbox === checkbox2) {
 		label = checkbox2Label;
 	}
-
 	label.textContent = checkbox.checked ? 'Including' : 'No including';
-
 }
 //========================================================================================================================================================
-const presetsRadios = document.querySelectorAll('.presets__radio input[name="radio-p"]');
-const allowRadios = document.querySelectorAll('.allow__radio input[name="radio-allow"]');
-
-presetsRadios.forEach(radio => {
-	radio.addEventListener('change', handleRadioChange);
-});
-
-allowRadios.forEach(radio => {
-	radio.addEventListener('change', handleRadioChange);
-});
 
 function handleRadioChange(event) {
 	if (dateOne.value && dateTwo.value) {
