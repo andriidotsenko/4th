@@ -1477,11 +1477,11 @@ lock scroll .lock body {
   }
 
   .result__calc {
-    font-size: 1.125rem;
+    font-size: 1.5rem;
   }
 
   .result__outputs {
-    font-size: 2.875rem;
+    font-size: 1rem;
   }
 
   .actions {
@@ -2227,27 +2227,27 @@ lock scroll .lock body {
     }
 }
 
-@supports (font-size: clamp( 1.125rem , 0.997611465rem  +  0.6369426752vw , 1.5rem )) {
+@supports (font-size: clamp( 1.5rem , 1.5rem  +  0vw , 1.5rem )) {
     .result__calc {
-      font-size: clamp( 1.125rem , 0.997611465rem  +  0.6369426752vw , 1.5rem );
+      font-size: clamp( 1.5rem , 1.5rem  +  0vw , 1.5rem );
     }
 }
 
-@supports not (font-size: clamp( 1.125rem , 0.997611465rem  +  0.6369426752vw , 1.5rem )) {
+@supports not (font-size: clamp( 1.5rem , 1.5rem  +  0vw , 1.5rem )) {
     .result__calc {
-      font-size: calc(1.125rem + 0.375 * (100vw - 20rem) / 58.875);
+      font-size: calc(1.5rem + 0 * (100vw - 20rem) / 58.875);
     }
 }
 
-@supports (font-size: clamp( 2.875rem , 2.79007431rem  +  0.4246284501vw , 3.125rem )) {
+@supports (font-size: clamp( 1rem , 0.2781316348rem  +  3.6093418259vw , 3.125rem )) {
     .result__outputs {
-      font-size: clamp( 2.875rem , 2.79007431rem  +  0.4246284501vw , 3.125rem );
+      font-size: clamp( 1rem , 0.2781316348rem  +  3.6093418259vw , 3.125rem );
     }
 }
 
-@supports not (font-size: clamp( 2.875rem , 2.79007431rem  +  0.4246284501vw , 3.125rem )) {
+@supports not (font-size: clamp( 1rem , 0.2781316348rem  +  3.6093418259vw , 3.125rem )) {
     .result__outputs {
-      font-size: calc(2.875rem + 0.25 * (100vw - 20rem) / 58.875);
+      font-size: calc(1rem + 2.125 * (100vw - 20rem) / 58.875);
     }
 }
 
