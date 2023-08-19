@@ -991,6 +991,12 @@ lock scroll .lock body {
   padding: 0.3125rem;
 }
 
+.outputs__title._icon-arrow.active {
+  -webkit-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+}
+
 ._icon-arrow {
   -webkit-transform: rotate(90deg);
       -ms-transform: rotate(90deg);
@@ -1033,6 +1039,7 @@ lock scroll .lock body {
 }
 
 .item-outputs__content {
+  text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
