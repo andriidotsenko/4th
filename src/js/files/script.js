@@ -64,10 +64,9 @@ const MAX_SAVED_OBJECTS = 10;
 let itemsLoaded = false;
 
 // Встановлення тексту для чекбоксів
-checkbox1Label.textContent = checkbox1.checked ? 'Включно' : 'Не включно';
-checkbox2Label.textContent = checkbox2.checked ? 'Включно' : 'Не включно';
-
-resultOutput.innerText = 'no date entered!';
+checkbox1Label.textContent = checkbox1.checked ? 'includes' : 'no includes';
+checkbox2Label.textContent = checkbox2.checked ? 'includes' : 'no includes';
+resultOutput.innerText = 'enter dates!';
 
 // Подія відправки форми калькулятора
 formCalculator.addEventListener("submit", setCalculatorResult);
