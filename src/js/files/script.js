@@ -38,7 +38,6 @@ function onTabClick(item) {
 // Активуємо першу вкладку за замовчуванням
 document.querySelectorAll(".tabs__nav-btn")[0].click();
 
-
 //========================================================================================================================================================
 // Вибір елементів DOM
 const resultOutput = document.querySelector('.result__outputs');
@@ -266,7 +265,7 @@ function handleRadioChange(event) {
 
 // Відображення результатів після завантаження сторінки
 if (resultsList.style.display === "none") {
-	resultOutput.style.transform = "scale(2)";
+	resultOutput.style.transform = "scale(1.3)";
 }
 
 // Завантаження збережених об'єктів з localStorage
@@ -339,9 +338,9 @@ function blinkBorder(item) {
 	}
 
 	async function animateBorder() {
-		await applyBorder('#CCEFD2 1px solid');
+		await applyBorder('#885eca 1px solid');
 		await applyBorder('');
-		await applyBorder('#CCEFD2 1px solid');
+		await applyBorder('#885eca 1px solid');
 
 	}
 
@@ -352,7 +351,7 @@ function clearAll(event) {
 	event.preventDefault()
 	resultsUl.textContent = '';
 	resultOutput.innerText = 'enter dates!';
-	resultOutput.style.transform = "scale(2)";
+	resultOutput.style.transform = "scale(1.3)";
 	resultsList.style.display = "none";
 	savedObjects.length = 0;
 	localStorage.removeItem('savedObjects');

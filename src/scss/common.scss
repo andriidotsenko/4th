@@ -23,7 +23,6 @@
 
 //===================================================
 //tooggles
-
 .checkbox {
 	display: inline-block;
 	z-index: 1;
@@ -58,9 +57,8 @@
 
 	&__inner {
 		@include adaptiveValue("font-size", 18, 16);
-
 		line-height: 1.5;
-		letter-spacing: rem(3.6);
+		letter-spacing: rem(3);
 		display: inline-block;
 		position: relative;
 		padding: rem(5) rem(5) rem(5) rem(60);
@@ -103,7 +101,6 @@
 }
 
 //=======================================================
-
 .radio {
 	display: inline-block;
 	z-index: 1;
@@ -135,9 +132,7 @@
 		line-height: 1.8;
 		@include adaptiveValue("font-size", 18, 16);
 		letter-spacing: rem(3.6);
-
 		display: inline-block;
-
 		color: $inactiveColor;
 		padding-left: rem(28);
 		transition: color 0.2s ease-in 0.0s;
@@ -186,7 +181,6 @@
 }
 
 //========================================================
-
 .title {
 	@include adaptiveValue("font-size", 24, 18);
 	@include adaptiveValue("margin-bottom", 24, 12);
@@ -198,9 +192,7 @@
 	background-color: $inputColor;
 	border: rem(1) solid $mainColor;
 	border-radius: rem(5);
-
 	text-align: center;
-
 	letter-spacing: rem(4.32);
 
 	&:hover {

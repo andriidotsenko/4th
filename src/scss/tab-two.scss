@@ -1,5 +1,4 @@
 .tab-holidays {
-
 	&__form-two {}
 
 	&__null {
@@ -16,7 +15,6 @@
 			@include adaptiveValue("padding-top", 144, 20);
 			opacity: 0.4;
 			user-select: none;
-
 		}
 
 		&::after {
@@ -38,8 +36,6 @@
 }
 
 //========================================================================================================================================================
-
-
 .form-two {
 	display: grid;
 	grid-template-columns: 2fr 2fr 1fr;
@@ -51,7 +47,6 @@
 		// text-align: center;
 		@include adaptiveValue("padding-left", 40, 12);
 		@include adaptiveValue("margin-bottom", 16, 8);
-
 	}
 
 	&__select {
@@ -59,7 +54,6 @@
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		appearance: none;
-
 		border-radius: rem(5);
 		background: $inputColor;
 		background-image: url("data:image/svg+xml;utf8,<svg fill='rgb(49, 16, 103)' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
@@ -68,7 +62,6 @@
 		background-position-y: 50%;
 		border: rem(1) solid $inactiveColor;
 		height: rem(60);
-
 		@include adaptiveValue("font-size", 24, 16);
 		min-width: 100%;
 		color: $mainColor;
@@ -78,11 +71,9 @@
 		@include adaptiveValue("padding-top", 15, 16);
 		@include adaptiveValue("padding-bottom", 15, 16);
 
-
 		&:hover {
 			background-color: $inputHoverColor ;
 			border: rem(1) solid $mainColor;
-
 		}
 	}
 
@@ -94,12 +85,10 @@
 	&__region {
 		padding: rem(5);
 		grid-area: B;
-
 	}
 
 	&__action {
 		padding: rem(5);
-
 		grid-area: D;
 		display: flex;
 		justify-content: flex-start;
@@ -114,7 +103,6 @@
 		&[selected] {
 			background: $onColor;
 			font-weight: bold;
-
 		}
 	}
 }
@@ -126,29 +114,23 @@
 		&[selected] {
 			background: $onColor;
 			font-weight: bold;
-
 		}
 	}
 }
 
 //========================================================================================================================================================
-
 .action {
-
 	&__button {
 		font-weight: 400;
 		padding: rem(54);
 		min-width: 100%;
 		min-height: rem(60);
-
 		@include adaptiveValue("padding-top", 15, 12);
 		@include adaptiveValue("padding-bottom", 15, 12);
 	}
 }
 
 //========================================================================================================================================================
-
-
 @media (max-width:$mobile) {
 	.form-two {
 		grid-template-columns: 1fr;
@@ -165,12 +147,10 @@
 
 		&__action {
 			grid-area: three;
-
 		}
 	}
 
 	.action {
-
 		&__button {
 			min-width: 100%;
 		}
@@ -178,17 +158,12 @@
 }
 
 //========================================================================================================================================================
-
-
 .outputs {
-
 	&__titles {
-
 		display: grid;
 		grid-template-columns: 1fr 1fr 4fr;
 		@include adaptiveValue("margin-bottom", 16, 12);
 	}
-
 
 	&__title {
 		@include adaptiveValue("padding-left", 24, 8);
@@ -196,9 +171,6 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-
-
-
 	}
 
 	&__list {
@@ -206,7 +178,6 @@
 	}
 
 	&__item {
-
 		&:not(:last-child) {
 			@include adaptiveValue("margin-bottom", 24, 8);
 		}
@@ -217,7 +188,6 @@
 	transform: rotate(-90deg);
 }
 
-
 .title-date {}
 
 ._icon-arrow {
@@ -225,25 +195,16 @@
 }
 
 //========================================================================================================================================================
-
-
 .item-outputs {
-
 	display: grid;
 	grid-template-columns: 2fr 4fr;
 	background: $inputColor;
 	@include adaptiveValue("font-size", 24, 15);
-
-
-
 	background: rgba(255, 255, 255, 0.76);
-
-
 	box-shadow: 0 rem(0) rem(1) rgba(0, 0, 0, 0.1);
 	backdrop-filter: blur(rem(6));
 	-webkit-backdrop-filter: blur(rem(6));
 	border-bottom: 1px solid rgba(255, 255, 255, 0.0);
-
 	border: rem(1) solid $mainColor;
 	justify-content: center;
 	align-items: center;
@@ -253,7 +214,6 @@
 
 	&__date {
 		@include adaptiveValue("padding", 14.51, 11.5);
-
 		@include adaptiveValue("padding-left", 16, 8);
 		@include adaptiveValue("padding-right", 16, 8);
 		display: flex;
@@ -263,7 +223,7 @@
 
 	&__content {
 		@include adaptiveValue("padding", 14.51, 11.5);
-text-align: center;
+		text-align: center;
 		@include adaptiveValue("padding-left", 16, 8);
 		@include adaptiveValue("padding-right", 16, 8);
 		display: flex;

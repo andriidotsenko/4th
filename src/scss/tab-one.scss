@@ -29,7 +29,6 @@
 			grid-template-columns: repeat(2, (minmax(rem(90), 1fr)));
 			grid-template-rows: repeat(3, minmax(rem(150), 1fr));
 			@include adaptiveValue("gap", 24, 16);
-
 			grid-template-areas: "A A" "B B" "C D";
 
 			.input-from {
@@ -100,7 +99,6 @@
 		cursor: pointer;
 		color: $mainColor;
 		background: $inputColor;
-		
 		@include adaptiveValue("font-size", 24, 18);
 		@include adaptiveValue("padding-top", 16, 8);
 		@include adaptiveValue("padding-bottom", 16, 8);
@@ -122,7 +120,6 @@
 			content: "\e901";
 			@extend %ic;
 			display: flex;
-
 			justify-content: center;
 			align-items: center;
 			position: absolute;
@@ -141,13 +138,10 @@
 			}
 		}
 	}
-
 }
 
 .result {
-
 	@include adaptiveValue("margin-bottom", 84, 56);
-
 	display: grid;
 	grid-template-columns: minmax(rem(330), 1fr) 1fr;
 	@include adaptiveValue("gap", 60, 50);
@@ -155,19 +149,15 @@
 
 	@media (max-width:$mobile) {
 		grid-template-columns: minmax(rem(280), 1fr);
-
 	}
 
 	&__buttons {
 		display: grid;
 		grid-template-columns: minmax(rem(228), 1fr) 1fr;
 		@include adaptiveValue("gap", 12, 4);
-
 	}
 
 	&__calc {
-
-
 		@include adaptiveValue("font-size", 24, 24);
 	}
 
@@ -179,8 +169,6 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-
-
 
 		&::before {
 			position: absolute;
@@ -226,10 +214,7 @@
 }
 
 //========================================================================================================================================================
-
-
 .results {
-
 	&__titles {
 		display: grid;
 		grid-template-columns: 1fr 1fr 3fr;
@@ -252,7 +237,6 @@
 	}
 
 	&__list {
-
 		&::after {
 			content: "THE END <3";
 			text-align: center;
@@ -274,13 +258,10 @@
 	@include adaptiveValue("padding", 14.51, 11.5);
 	text-align: center;
 	background: rgba(255, 255, 255, 0.76);
-
-	
 	box-shadow: 0 rem(0) rem(1) rgba(0, 0, 0, 0.1);
 	backdrop-filter: blur(rem(6));
-	-webkit-backdrop-filter: blur( rem(6));
+	-webkit-backdrop-filter: blur(rem(6));
 	border-bottom: 1px solid rgba(255, 255, 255, 0.0);
-
 	border: rem(1) solid $mainColor;
 	justify-content: center;
 	align-items: center;
@@ -301,20 +282,16 @@
 			user-select: none;
 			position: absolute;
 			border-bottom: rem(1) dotted #bebebe;
-
 			@include adaptiveValue("height", 0, 0);
 			@include adaptiveValue("width", 24, 12);
-
 			top: 50%;
 			right: 0;
 			background-color: $inactiveColor;
 			transform: translate(50%, -50%);
 		}
-
 	}
 
 	&__end {
-
 		@include adaptiveValue("padding-left", 16, 8);
 		@include adaptiveValue("padding-right", 16, 8);
 	}
@@ -330,7 +307,6 @@
 }
 
 //========================================================================================================================================================
-
 @media (max-width:$mobileSmall ) {
 	.results {
 		&__item {
@@ -347,10 +323,12 @@
 			>.title-range {
 				display: block;
 			}
+
 			>.title-start {
 				display: none;
 			}
-			>.title-end{
+
+			>.title-end {
 				display: none;
 			}
 		}
@@ -370,14 +348,13 @@
 			}
 
 			&__content {
-
 				grid-area: S;
 				border-left: rem(1) dashed $inactiveColor;
 				min-height: 100%;
 				@include adaptiveValue("padding-top", 24, 15);
 				@include adaptiveValue("padding-bottom", 24, 15);
-
 			}
 		}
 	}
 }
+
