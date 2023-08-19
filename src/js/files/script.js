@@ -1,39 +1,46 @@
 'use strict';
+
 // Підключення функціоналу "Чертоги Фрілансера"
 import { isMobile } from "./functions.js";
 // Підключення списку активних модулів
 import { flsModules } from "./modules.js";
 
-//tabs and tytle change
-const tabsBtn = document.querySelectorAll(".tabs__nav-btn")
-const tabsItems = document.querySelectorAll(".tabs__item")
+// Отримання всіх кнопок вкладок і вмісту вкладок
+const tabsBtn = document.querySelectorAll(".tabs__nav-btn");
+const tabsItems = document.querySelectorAll(".tabs__item");
 
-tabsBtn.forEach(onTabClick)
+// Додаємо обробку події кліку для кожної кнопки вкладки
+tabsBtn.forEach(onTabClick);
 
+// Функція, яка буде викликатися при кліку на кнопку вкладки
 function onTabClick(item) {
 	item.addEventListener("click", () => {
-		let currentBtn = item;
-		let tabId = currentBtn.getAttribute("data-tab")
-		let currentTab = document.querySelector(tabId)
-		let currentTytle = `4TH - ${currentBtn.innerText}`
+		let currentBtn = item; // Поточна натиснута кнопка
+		let tabId = currentBtn.getAttribute("data-tab"); // ID вкладки, який відповідає даній кнопці
+		let currentTab = document.querySelector(tabId); // Вміст поточної вкладки
+		let currentTitle = `4TH - ${currentBtn.innerText}`; // Текст для зміни заголовка вікна
 
 		if (!currentBtn.classList.contains("active")) {
+			// Якщо кнопка вкладки не має класу "active"
 			tabsBtn.forEach((item) => {
-				item.classList.remove("active")
+				item.classList.remove("active"); // Забираємо клас "active" у всіх кнопок вкладок
 			});
 			tabsItems.forEach((item) => {
-				item.classList.remove("active")
+				item.classList.remove("active"); // Забираємо клас "active" у всіх вмістів вкладок
 			});
-			currentBtn.classList.add("active")
-			currentTab.classList.add("active")
-			document.title = currentTytle
+			currentBtn.classList.add("active"); // Додаємо клас "active" поточній кнопці вкладки
+			currentTab.classList.add("active"); // Додаємо клас "active" поточному вмісту вкладки
+			document.title = currentTitle; // Змінюємо заголовок вікна на підставі тексту вибраної вкладки
 		}
-	})
+	});
 }
 
-document.querySelectorAll(".tabs__nav-btn")[0].click()
+// Активуємо першу вкладку за замовчуванням
+document.querySelectorAll(".tabs__nav-btn")[0].click();
 
 
+//========================================================================================================================================================
+// Вибір елементів DOM
 const resultOutput = document.querySelector('.result__outputs');
 const formCalculator = document.querySelector('.tab-calculator__form');
 const dateOne = document.querySelectorAll('.datepicker__input')[0];
@@ -56,20 +63,23 @@ const clearBtn = document.querySelector('.result__clear');
 const MAX_SAVED_OBJECTS = 10;
 let itemsLoaded = false;
 
+// Встановлення тексту для чекбоксів
+checkbox1Label.textContent = checkbox1.checked ? 'Включно' : 'Не включно';
+checkbox2Label.textContent = checkbox2.checked ? 'Включно' : 'Не включно';
 
-checkbox1Label.textContent = checkbox1.checked ? 'Including' : 'No including';
-checkbox2Label.textContent = checkbox2.checked ? 'Including' : 'No including';
+resultOutput.innerText = 'no date entered!';
 
-resultOutput.innerText = 'enter dates!';
-
+// Подія відправки форми калькулятора
 formCalculator.addEventListener("submit", setCalculatorResult);
 
+// Події зміни тоглів
 checkbox1.addEventListener('change', toggleText);
 checkbox2.addEventListener('change', toggleText);
 
 checkbox1.addEventListener('change', handleCheckboxChange);
 checkbox2.addEventListener('change', handleCheckboxChange);
 
+// Події зміни радіо-кнопок
 presetsRadios.forEach(radio => {
 	radio.addEventListener('change', handleRadioChange);
 });
@@ -77,8 +87,11 @@ presetsRadios.forEach(radio => {
 allowRadios.forEach(radio => {
 	radio.addEventListener('change', handleRadioChange);
 });
+
+// Подія натиснення кнопки очищення
 clearBtn.addEventListener('click', clearAll);
 
+// Логіка для додавання місяця і тижня
 if (addMonthButton && addWeekButton) {
 	addMonthButton.addEventListener('click', (event) => {
 		event.preventDefault();
@@ -113,12 +126,14 @@ if (addMonthButton && addWeekButton) {
 
 resultsList.style.display = "none";
 
+// Логіка для обробки зміни стану чекбоксів
 function handleCheckboxChange() {
 	if (dateOne.value && dateTwo.value) {
 		setCalculatorResult(event);
 	}
 }
 
+// Функція для форматування дати
 function formatDate(date) {
 	const year = date.getFullYear();
 	const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -126,6 +141,7 @@ function formatDate(date) {
 	return `${year}-${month}-${day}`;
 }
 
+// Функція для форматування дати в іншому стилі
 function formatDateTwo(date) {
 	const year = date.getFullYear();
 	const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -133,6 +149,15 @@ function formatDateTwo(date) {
 	return `${day}.${month}.${year}`;
 }
 
+// Функція для форматування дати в іншому стилі (без року)
+function formatDateThree(date) {
+	const year = date.getFullYear();
+	const month = (date.getMonth() + 1).toString().padStart(2, '0');
+	const day = date.getDate().toString().padStart(2, '0');
+	return `${day}.${month}`;
+}
+
+// Функція для обчислення вихідних днів між датами
 function calculateWeekends(startDate, days) {
 	let weekends = 0;
 	for (let i = 0; i < days; i++) {
@@ -144,6 +169,7 @@ function calculateWeekends(startDate, days) {
 	return weekends;
 }
 
+// Функція для обчислення робочих днів між датами
 function calculateWeekdays(startDate, days) {
 	let weekdays = 0;
 	for (let i = 0; i < days; i++) {
@@ -155,6 +181,7 @@ function calculateWeekdays(startDate, days) {
 	return weekdays;
 }
 
+// Функція для зміни тексту залежно від стану чекбоксів
 function toggleText(event) {
 	const checkbox = event.target;
 	let label;
@@ -163,9 +190,10 @@ function toggleText(event) {
 	} else if (checkbox === checkbox2) {
 		label = checkbox2Label;
 	}
-	label.textContent = checkbox.checked ? 'Including' : 'No including';
+	label.textContent = checkbox.checked ? 'Includes' : 'No includes';
 }
 
+// Функція для встановлення результату калькулятора
 function setCalculatorResult(event) {
 	event.preventDefault();
 	resultOutput.style.transform = "scale(1)";
@@ -183,7 +211,7 @@ function setCalculatorResult(event) {
 	}
 
 	if (isNaN(firstDate) || isNaN(secondDate)) {
-		resultOutput.innerText = 'Invalid date input';
+		resultOutput.innerText = `no date entered!`;
 		return;
 	}
 
@@ -193,17 +221,17 @@ function setCalculatorResult(event) {
 	const checkedPreset = document.querySelector('.presets__radio input[name="radio-p"]:checked');
 	const checkedAllow = document.querySelector('.allow__radio input[name="radio-allow"]:checked');
 
-	let timeUnit = 'd.';
+	let timeUnit = 'd';
 
 	if (checkedPreset && checkedPreset.id === 'p_radio_2') {
 		daysDifference *= 24;
-		timeUnit = 'h.';
+		timeUnit = 'h';
 	} else if (checkedPreset && checkedPreset.id === 'p_radio_3') {
 		daysDifference *= 24 * 60;
-		timeUnit = 'm.';
+		timeUnit = 'min';
 	} else if (checkedPreset && checkedPreset.id === 'p_radio_4') {
 		daysDifference *= 24 * 60 * 60;
-		timeUnit = 's.';
+		timeUnit = 's';
 	}
 
 	if (checkedAllow && checkedAllow.id === 'a_radio_1') {
@@ -220,27 +248,29 @@ function setCalculatorResult(event) {
 		const formattedDaysDifference = daysDifference.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 		resultOutput.innerText = `= ${formattedDaysDifference} ${timeUnit}`;
 
-		// Проверяем, есть ли уже такой элемент в массиве savedObjects
 		const existingObject = savedObjects.find(obj => obj.start === formatDateTwo(firstDate) && obj.end === formatDateTwo(secondDate) && obj.content === `${formattedDaysDifference} ${timeUnit}`);
 
 		if (!existingObject) {
 			generatorListresult(formatDateTwo(firstDate), formatDateTwo(secondDate), `${formattedDaysDifference} ${timeUnit}`);
 		}
 	} else {
-		resultOutput.innerText = 'Calculation error';
+		resultOutput.innerText = 'no date entered';
 	}
 }
 
+// Функція для обробки зміни радіо-кнопок
 function handleRadioChange(event) {
 	if (dateOne.value && dateTwo.value) {
 		setCalculatorResult(event);
 	}
 }
 
+// Відображення результатів після завантаження сторінки
 if (resultsList.style.display === "none") {
 	resultOutput.style.transform = "scale(2)";
 }
 
+// Завантаження збережених об'єктів з localStorage
 function loadSavedItems() {
 	const savedObjects = JSON.parse(localStorage.getItem('savedObjects')) || [];
 	savedObjects.forEach(item => {
@@ -248,15 +278,18 @@ function loadSavedItems() {
 	});
 }
 
+// Завантаження даних при завантаженні сторінки
 window.addEventListener('DOMContentLoaded', () => {
 	loadSavedItems();
 	itemsLoaded = true;
 });
 
+// Збереження стану завантаження при покиданні сторінки
 window.addEventListener('beforeunload', () => {
 	localStorage.setItem('itemsLoaded', JSON.stringify(itemsLoaded));
 });
 
+// Функція для генерації списку результатів
 function generatorListresult(start, end, content) {
 	resultsList.style.display = "block";
 	resultOutput.style.transform = "scale(1)";
@@ -281,7 +314,7 @@ function generatorListresult(start, end, content) {
 	liItem.append(endDiv);
 	liItem.append(contentDiv);
 
-	setRedBGForAWhile(liItem);
+	blinkBorder(liItem);
 	const savedObjects = JSON.parse(localStorage.getItem('savedObjects')) || [];
 	const existingObject = savedObjects.find(obj => obj.start === start && obj.end === end && obj.content === content);
 
@@ -294,14 +327,15 @@ function generatorListresult(start, end, content) {
 	}
 }
 
-function setRedBGForAWhile(item) {
+// Анімація червоного фону на короткий час
+function blinkBorder(item) {
 	function applyBorder(border) {
 		return new Promise(resolve => {
 			item.style.border = border;
 			setTimeout(() => {
 				item.style.border = '';
 				resolve();
-			}, 100);
+			}, 300);
 		});
 	}
 
@@ -319,9 +353,132 @@ function clearAll(event) {
 	event.preventDefault()
 	resultsUl.textContent = '';
 	resultOutput.innerText = 'enter dates!';
+	resultOutput.style.transform = "scale(2)";
 	resultsList.style.display = "none";
 	savedObjects.length = 0;
 	localStorage.removeItem('savedObjects');
 	dateOne.value = ''
 	dateTwo.value = ''
 }
+
+//========================================================================================================================================================
+
+document.addEventListener("DOMContentLoaded", function () {
+	const apiKey = "f3ndXepmP15fIXlrybfXBOERiOlBdyVM";
+	const selectRegion = document.querySelector(".select-region");
+	const selectYear = document.querySelector(".select-year");
+	const outputsList = document.querySelector(".outputs__list");
+	const searchButton = document.querySelector(".action__button"); // Adding selection for the "Пошук!" (Search!) button
+	const calendarImage = document.querySelector(".tab-holidays__null");
+	const titles = document.querySelector(".outputs__titles");
+	const reverseOrderButton = document.querySelector(".outputs__title._icon-arrow");
+
+	// Adding the 'active' class to make the calendar image visible and hiding titles
+	calendarImage.classList.add('active');
+	titles.style.display = "none";
+
+	// Adding a click event listener to the reverse order button
+	reverseOrderButton.addEventListener("click", () => {
+		reverseOrderButton.classList.toggle('active');
+		const items = Array.from(outputsList.querySelectorAll(".outputs__item"));
+		items.reverse();
+		items.forEach((item) => outputsList.appendChild(item));
+	});
+
+	// Функція для запиту списку країн та заповнення списку вибору
+	function fetchCountries() {
+		fetch(`https://calendarific.com/api/v2/countries?api_key=${apiKey}`)
+			.then((response) => response.json())
+			.then((data) => {
+				const countries = data.response.countries;
+				selectRegion.innerHTML = "";
+				countries.forEach((country) => {
+					const option = document.createElement("option");
+					option.className = "select-region__option";
+					option.value = country['iso-3166'];
+					option.textContent = country.country_name;
+					selectRegion.appendChild(option);
+				});
+				selectYear.removeAttribute("disabled");
+			})
+			.catch((error) => {
+				console.error("Помилка при отриманні списку країн:", error);
+			});
+	}
+
+	// Функція для запиту списку років та заповнення списку вибору
+	function populateYears() {
+		const currentYear = new Date().getFullYear();
+		for (let year = 2001; year <= 2049; year++) {
+			const option = document.createElement("option");
+			option.value = year;
+			option.textContent = year;
+			if (year === currentYear) {
+				option.selected = true;
+			}
+			selectYear.appendChild(option);
+		}
+	}
+
+	// Функція для запиту та відображення свят на основі вибраної країни та року
+	function fetchHolidays() {
+		calendarImage.classList.remove('active');
+		titles.style.display = "grid";
+
+		const selectedCountry = selectRegion.value;
+		const selectedYear = selectYear.value;
+		fetch(
+			`https://calendarific.com/api/v2/holidays?api_key=${apiKey}&country=${selectedCountry}&year=${selectedYear}`
+		)
+			.then((response) => response.json())
+			.then((data) => {
+				const holidays = data.response.holidays;
+
+				outputsList.innerHTML = "";
+				let counter = 0
+				holidays.forEach((holiday) => {
+					const listItem = document.createElement("li");
+					listItem.className = "outputs__item item-outputs";
+					listItem.innerHTML = `
+            <div class="item-outputs__date">${formatDateThree(new Date(holiday.date.iso))}</div>
+            <div class="item-outputs__content">${holiday.name}</div>
+          `;
+					outputsList.appendChild(listItem);
+					counter++;
+				});
+				console.log(counter);
+			})
+			.catch((error) => {
+				console.error("Error when receiving holidays:", error);
+			});
+	}
+
+	// Прикріплюємо обробник на кнопку "Пошук!"
+	searchButton.addEventListener("click", (event) => {
+		event.preventDefault(); // Перешкоджаємо відправці форми
+		fetchHolidays();
+	});
+
+	// Прикріплюємо обробники подій на зміну вибраних параметрів
+	selectRegion.addEventListener("change", fetchHolidays);
+
+	selectYear.addEventListener("change", fetchHolidays);
+
+	const sortByDateButton = document.querySelector(".title-date");
+	let ascendingOrder = true;
+
+	sortByDateButton.addEventListener("click", () => {
+		const items = Array.from(outputsList.querySelectorAll(".outputs__item"));
+		items.sort((a, b) => {
+			const dateA = new Date(a.querySelector(".item-outputs__date").textContent);
+			const dateB = new Date(b.querySelector(".item-outputs__date").textContent);
+			return ascendingOrder ? dateA - dateB : dateB - dateA;
+		});
+		ascendingOrder = !ascendingOrder;
+		items.forEach((item) => outputsList.appendChild(item));
+	});
+
+	// Початкові запити для країн та років
+	fetchCountries();
+	populateYears();
+});

@@ -189,12 +189,14 @@
 		@include adaptiveValue("margin-bottom", 16, 12);
 	}
 
+
 	&__title {
-		@include adaptiveValue("padding-left",24 ,8 );
-		@include adaptiveValue("padding-right",24 ,8 );
+		@include adaptiveValue("padding-left", 24, 8);
+		@include adaptiveValue("padding-right", 24, 8);
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
 
 
 	}
@@ -204,19 +206,24 @@
 	}
 
 	&__item {
-		
+
 		&:not(:last-child) {
 			@include adaptiveValue("margin-bottom", 24, 8);
 		}
 	}
 }
 
-.title-date {
-
+.outputs__title._icon-arrow.active {
+	transform: rotate(-90deg);
 }
-._icon-arrow{
+
+
+.title-date {}
+
+._icon-arrow {
 	transform: rotate(90deg);
 }
+
 //========================================================================================================================================================
 
 
@@ -256,7 +263,7 @@
 
 	&__content {
 		@include adaptiveValue("padding", 14.51, 11.5);
-
+text-align: center;
 		@include adaptiveValue("padding-left", 16, 8);
 		@include adaptiveValue("padding-right", 16, 8);
 		display: flex;
