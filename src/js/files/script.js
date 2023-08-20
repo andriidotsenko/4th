@@ -36,7 +36,7 @@ function onTabClick(item) {
 }
 
 // Активуємо першу вкладку за замовчуванням
-document.querySelectorAll(".tabs__nav-btn")[0].click();
+tabsBtn[0].click();
 
 //========================================================================================================================================================
 // Вибір елементів DOM
@@ -130,6 +130,19 @@ function handleCheckboxChange() {
 		setCalculatorResult(event);
 	}
 }
+
+dateOne.addEventListener('change', () => {
+	const selectedDate = new Date(dateOne.value);
+	if (!isNaN(selectedDate)) {
+		// Дозволяємо обрати дату в другому полі вводу тільки після вибору першої дати
+		dateTwo.min = formatDate(selectedDate);
+		// Очищаємо значення другого поля вводу, якщо воно менше встановленої мінімальної дати
+		if (new Date(dateTwo.value) <= selectedDate) {
+			dateTwo.value = '';
+		}
+	}
+});
+
 
 // Функція для форматування дати
 function formatDate(date) {
@@ -361,7 +374,9 @@ function clearAll(event) {
 
 //========================================================================================================================================================
 
-document.addEventListener("DOMContentLoaded", function () {
+tabsBtn[1].addEventListener("click", () => {
+	const errorMessage = document.querySelector(".error-message");
+
 	const apiKey = "f3ndXepmP15fIXlrybfXBOERiOlBdyVM";
 	const selectRegion = document.querySelector(".select-region");
 	const selectYear = document.querySelector(".select-year");
@@ -371,6 +386,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	const titles = document.querySelector(".outputs__titles");
 	const reverseOrderButton = document.querySelector(".outputs__title._icon-arrow");
 
+	outputsList.textContent = '';
 	// Adding the 'active' class to make the calendar image visible and hiding titles
 	calendarImage.classList.add('active');
 	titles.style.display = "none";
@@ -390,6 +406,13 @@ document.addEventListener("DOMContentLoaded", function () {
 			.then((data) => {
 				const countries = data.response.countries;
 				selectRegion.innerHTML = "";
+
+				// const optionDefault = document.createElement("option");
+				// optionDefault.className = "select-region__option";
+				// optionDefault.value = "UA";
+				// optionDefault.textContent = "Ukraine";
+				// selectRegion.appendChild(optionDefault);
+
 				countries.forEach((country) => {
 					const option = document.createElement("option");
 					option.className = "select-region__option";
@@ -397,7 +420,8 @@ document.addEventListener("DOMContentLoaded", function () {
 					option.textContent = country.country_name;
 					selectRegion.appendChild(option);
 				});
-				selectYear.removeAttribute("disabled");
+				// Викликати функцію для роботи з вибором країни
+				handleCountrySelection();
 			})
 			.catch((error) => {
 				console.error("Помилка при отриманні списку країн:", error);
@@ -416,6 +440,8 @@ document.addEventListener("DOMContentLoaded", function () {
 			}
 			selectYear.appendChild(option);
 		}
+		// Заблокувати інпут "Вибір року" на початку
+		selectYear.setAttribute("disabled", "true");
 	}
 
 	// Функція для запиту та відображення свят на основі вибраної країни та року
@@ -428,27 +454,57 @@ document.addEventListener("DOMContentLoaded", function () {
 		fetch(
 			`https://calendarific.com/api/v2/holidays?api_key=${apiKey}&country=${selectedCountry}&year=${selectedYear}`
 		)
-			.then((response) => response.json())
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Помилка запиту до сервера");
+				}
+				return response.json();
+			})
 			.then((data) => {
 				const holidays = data.response.holidays;
 
 				outputsList.innerHTML = "";
-				let counter = 0
+				let counter = 0;
 				holidays.forEach((holiday) => {
 					const listItem = document.createElement("li");
 					listItem.className = "outputs__item item-outputs";
 					listItem.innerHTML = `
-            <div class="item-outputs__date">${formatDateThree(new Date(holiday.date.iso))}</div>
-            <div class="item-outputs__content">${holiday.name}</div>
-          `;
+						<div class="item-outputs__date">${formatDateThree(new Date(holiday.date.iso))}</div>
+						<div class="item-outputs__content">${holiday.name}</div>
+					`;
 					outputsList.appendChild(listItem);
 					counter++;
 				});
 				console.log(counter);
+
+				// Приховати блок з повідомленням про помилку у випадку успішного запиту
+				errorMessage.style.display = "none";
 			})
 			.catch((error) => {
 				console.error("Error when receiving holidays:", error);
+
+				// Включити блок з повідомленням про помилку у випадку помилки запиту
+				errorMessage.style.display = "flex";
+				calendarImage.classList.add('active');
+				titles.style.display = "none";
+
+
 			});
+	}
+
+	// Функція для обробки вибору країни
+	function handleCountrySelection() {
+		selectRegion.addEventListener("change", () => {
+			if (selectRegion.value !== "") {
+				// Розблокувати інпут "Вибір року"
+				selectYear.removeAttribute("disabled");
+			} else {
+				// Заблокувати інпут "Вибір року"
+				selectYear.setAttribute("disabled", "true");
+			}
+			// Викликати функцію для запиту та відображення свят
+			fetchHolidays();
+		});
 	}
 
 	// Прикріплюємо обробник на кнопку "Пошук!"
@@ -456,11 +512,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		event.preventDefault(); // Перешкоджаємо відправці форми
 		fetchHolidays();
 	});
-
-	// Прикріплюємо обробники подій на зміну вибраних параметрів
-	selectRegion.addEventListener("change", fetchHolidays);
-
-	selectYear.addEventListener("change", fetchHolidays);
 
 	const sortByDateButton = document.querySelector(".title-date");
 	let ascendingOrder = true;
