@@ -237,7 +237,7 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js"></script>
+	<script src="js/app.min.js?_v=20230820230850"></script>
 </body>
 
 </html>

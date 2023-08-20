@@ -35,7 +35,7 @@
             }
         }));
     }
-    document.querySelectorAll(".tabs__nav-btn")[0].click();
+    tabsBtn[0].click();
     const resultOutput = document.querySelector(".result__outputs");
     const formCalculator = document.querySelector(".tab-calculator__form");
     const dateOne = document.querySelectorAll(".datepicker__input")[0];
@@ -54,9 +54,9 @@
     const clearBtn = document.querySelector(".result__clear");
     const MAX_SAVED_OBJECTS = 10;
     let itemsLoaded = false;
-    checkbox1Label.textContent = checkbox1.checked ? "Включно" : "Не включно";
-    checkbox2Label.textContent = checkbox2.checked ? "Включно" : "Не включно";
-    resultOutput.innerText = "no date entered!";
+    checkbox1Label.textContent = checkbox1.checked ? "includes" : "no includes";
+    checkbox2Label.textContent = checkbox2.checked ? "includes" : "no includes";
+    resultOutput.innerText = "enter dates!";
     formCalculator.addEventListener("submit", setCalculatorResult);
     checkbox1.addEventListener("change", toggleText);
     checkbox2.addEventListener("change", toggleText);
@@ -103,6 +103,13 @@
     function handleCheckboxChange() {
         if (dateOne.value && dateTwo.value) setCalculatorResult(event);
     }
+    dateOne.addEventListener("change", (() => {
+        const selectedDate = new Date(dateOne.value);
+        if (!isNaN(selectedDate)) {
+            dateTwo.min = formatDate(selectedDate);
+            if (new Date(dateTwo.value) <= selectedDate) dateTwo.value = "";
+        }
+    }));
     function formatDate(date) {
         const year = date.getFullYear();
         const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -194,7 +201,7 @@
     function handleRadioChange(event) {
         if (dateOne.value && dateTwo.value) setCalculatorResult(event);
     }
-    if (resultsList.style.display === "none") resultOutput.style.transform = "scale(2)";
+    if (resultsList.style.display === "none") resultOutput.style.transform = "scale(1.3)";
     function loadSavedItems() {
         const savedObjects = JSON.parse(localStorage.getItem("savedObjects")) || [];
         savedObjects.forEach((item => {
@@ -250,9 +257,9 @@
             }));
         }
         async function animateBorder() {
-            await applyBorder("#CCEFD2 1px solid");
+            await applyBorder("#885eca 1px solid");
             await applyBorder("");
-            await applyBorder("#CCEFD2 1px solid");
+            await applyBorder("#885eca 1px solid");
         }
         animateBorder();
     }
@@ -260,14 +267,15 @@
         event.preventDefault();
         resultsUl.textContent = "";
         resultOutput.innerText = "enter dates!";
-        resultOutput.style.transform = "scale(2)";
+        resultOutput.style.transform = "scale(1.3)";
         resultsList.style.display = "none";
         savedObjects.length = 0;
         localStorage.removeItem("savedObjects");
         dateOne.value = "";
         dateTwo.value = "";
     }
-    document.addEventListener("DOMContentLoaded", (function() {
+    tabsBtn[1].addEventListener("click", (() => {
+        const errorMessage = document.querySelector(".error-message");
         const apiKey = "f3ndXepmP15fIXlrybfXBOERiOlBdyVM";
         const selectRegion = document.querySelector(".select-region");
         const selectYear = document.querySelector(".select-year");
@@ -276,6 +284,7 @@
         const calendarImage = document.querySelector(".tab-holidays__null");
         const titles = document.querySelector(".outputs__titles");
         const reverseOrderButton = document.querySelector(".outputs__title._icon-arrow");
+        outputsList.textContent = "";
         calendarImage.classList.add("active");
         titles.style.display = "none";
         reverseOrderButton.addEventListener("click", (() => {
@@ -295,7 +304,7 @@
                     option.textContent = country.country_name;
                     selectRegion.appendChild(option);
                 }));
-                selectYear.removeAttribute("disabled");
+                handleCountrySelection();
             })).catch((error => {
                 console.error("Помилка при отриманні списку країн:", error);
             }));
@@ -309,34 +318,46 @@
                 if (year === currentYear) option.selected = true;
                 selectYear.appendChild(option);
             }
+            selectYear.setAttribute("disabled", "true");
         }
         function fetchHolidays() {
             calendarImage.classList.remove("active");
             titles.style.display = "grid";
             const selectedCountry = selectRegion.value;
             const selectedYear = selectYear.value;
-            fetch(`https://calendarific.com/api/v2/holidays?api_key=${apiKey}&country=${selectedCountry}&year=${selectedYear}`).then((response => response.json())).then((data => {
+            fetch(`https://calendarific.com/api/v2/holidays?api_key=${apiKey}&country=${selectedCountry}&year=${selectedYear}`).then((response => {
+                if (!response.ok) throw new Error("Помилка запиту до сервера");
+                return response.json();
+            })).then((data => {
                 const holidays = data.response.holidays;
                 outputsList.innerHTML = "";
                 let counter = 0;
                 holidays.forEach((holiday => {
                     const listItem = document.createElement("li");
                     listItem.className = "outputs__item item-outputs";
-                    listItem.innerHTML = `\n            <div class="item-outputs__date">${formatDateThree(new Date(holiday.date.iso))}</div>\n            <div class="item-outputs__content">${holiday.name}</div>\n          `;
+                    listItem.innerHTML = `\n\t\t\t\t\t\t<div class="item-outputs__date">${formatDateThree(new Date(holiday.date.iso))}</div>\n\t\t\t\t\t\t<div class="item-outputs__content">${holiday.name}</div>\n\t\t\t\t\t`;
                     outputsList.appendChild(listItem);
                     counter++;
                 }));
                 console.log(counter);
+                errorMessage.style.display = "none";
             })).catch((error => {
                 console.error("Error when receiving holidays:", error);
+                errorMessage.style.display = "flex";
+                calendarImage.classList.add("active");
+                titles.style.display = "none";
+            }));
+        }
+        function handleCountrySelection() {
+            selectRegion.addEventListener("change", (() => {
+                if (selectRegion.value !== "") selectYear.removeAttribute("disabled"); else selectYear.setAttribute("disabled", "true");
+                fetchHolidays();
             }));
         }
         searchButton.addEventListener("click", (event => {
             event.preventDefault();
             fetchHolidays();
         }));
-        selectRegion.addEventListener("change", fetchHolidays);
-        selectYear.addEventListener("change", fetchHolidays);
         const sortByDateButton = document.querySelector(".title-date");
         let ascendingOrder = true;
         sortByDateButton.addEventListener("click", (() => {

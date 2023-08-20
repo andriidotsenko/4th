@@ -884,7 +884,7 @@ lock scroll .lock body {
   grid-template-columns: 2fr 2fr 1fr;
   -ms-grid-rows: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-      grid-template-areas: "A B D" "A B D";
+      grid-template-areas: "B A D" "B A D";
 }
 
 .form-two__select {
@@ -913,7 +913,7 @@ lock scroll .lock body {
 .form-two__year {
   -ms-grid-row: 1;
   -ms-grid-row-span: 2;
-  -ms-grid-column: 1;
+  -ms-grid-column: 2;
   padding: 0.3125rem;
   grid-area: A;
 }
@@ -921,7 +921,7 @@ lock scroll .lock body {
 .form-two__region {
   -ms-grid-row: 1;
   -ms-grid-row-span: 2;
-  -ms-grid-column: 2;
+  -ms-grid-column: 1;
   padding: 0.3125rem;
   grid-area: B;
 }
@@ -1683,14 +1683,14 @@ lock scroll .lock body {
   .form__items .input-from {
     -ms-grid-row: 1;
     -ms-grid-row-span: 2;
-    -ms-grid-column: 1;
+    -ms-grid-column: 2;
     grid-area: A;
   }
 
   .form__items .input-to {
     -ms-grid-row: 1;
     -ms-grid-row-span: 2;
-    -ms-grid-column: 2;
+    -ms-grid-column: 1;
     grid-area: B;
   }
 
@@ -1750,7 +1750,7 @@ lock scroll .lock body {
     grid-template-columns: 1fr;
     -ms-grid-columns: 3fr;
     grid-template-columns: 3fr;
-        grid-template-areas: "one" "two" "three";
+        grid-template-areas: "two" "one" "three";
   }
 
   .form-two__year {
@@ -1790,12 +1790,12 @@ lock scroll .lock body {
 @media (max-width: 47.99875em){
 
   .form-two__year {
-    -ms-grid-row: 1;
+    -ms-grid-row: 2;
     -ms-grid-column: 1;
   }
 
   .form-two__region {
-    -ms-grid-row: 2;
+    -ms-grid-row: 1;
     -ms-grid-column: 1;
   }
 
