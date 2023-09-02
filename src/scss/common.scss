@@ -52,6 +52,17 @@
 			&:hover {
 				color: $hoverColor;
 				transition: all 0.25s ease-in-out 0.0s;
+
+			}
+
+			&:hover::after,
+			&:hover::before {
+				transition: all 0.2s ease-in 0.0s;
+			}
+
+			&:hover::before {
+				transition: all 0.2s ease-in 0.0s;
+				background: #F9D3D3;
 			}
 		}
 	}
@@ -70,6 +81,18 @@
 		&:hover {
 			color: $hoverColor;
 			transition: all 0.2s ease-in 0.0s;
+		}
+
+		&:hover::before {
+			background: #DCEDDF;
+			transition: all 0.2s ease-in 0.0s;
+			border: rem(1) solid $mainColor;
+		}
+
+		&:hover::after {
+
+			transition: all 0.2s ease-in 0.0s;
+			border: rem(1) solid $mainColor;
 		}
 
 		&:active {

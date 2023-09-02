@@ -93,13 +93,28 @@ clearBtn.addEventListener('click', clearAll);
 if (addMonthButton && addWeekButton) {
 	addMonthButton.addEventListener('click', (event) => {
 		event.preventDefault();
+
 		if (dateOne.value && !dateTwo.value) {
 			const currentDate = new Date(dateOne.value);
 			currentDate.setMonth(currentDate.getMonth() + 1);
 			dateTwo.value = formatDate(currentDate);
 			setCalculatorResult(event);
-		} else if (dateTwo.value && !dateOne.value) {
+		}
+
+		else if (dateTwo.value && !dateOne.value) {
 			const currentDate = new Date(dateTwo.value);
+			currentDate.setMonth(currentDate.getMonth() + 1);
+			dateOne.value = formatDate(currentDate);
+			setCalculatorResult(event);
+		}
+		else if (dateTwo.value && dateOne.value && dateTwo.value > dateOne.value) {
+			const currentDate = new Date(dateTwo.value);
+			currentDate.setMonth(currentDate.getMonth() + 1);
+			dateTwo.value = formatDate(currentDate);
+			setCalculatorResult(event);
+		}
+		else if (dateTwo.value && dateOne.value && dateTwo.value < dateOne.value) {
+			const currentDate = new Date(dateOne.value);
 			currentDate.setMonth(currentDate.getMonth() + 1);
 			dateOne.value = formatDate(currentDate);
 			setCalculatorResult(event);
@@ -119,6 +134,18 @@ if (addMonthButton && addWeekButton) {
 			dateTwo.value = formatDate(currentDate);
 			setCalculatorResult(event);
 		}
+		else if (dateTwo.value && dateOne.value && dateTwo.value > dateOne.value) {
+			const currentDate = new Date(dateTwo.value);
+			currentDate.setDate(currentDate.getDate() + 7);
+			dateTwo.value = formatDate(currentDate);
+			setCalculatorResult(event);
+		}
+		else if (dateTwo.value && dateOne.value && dateTwo.value < dateOne.value) {
+			const currentDate = new Date(dateOne.value);
+			currentDate.setDate(currentDate.getDate() + 7);
+			dateOne.value = formatDate(currentDate);
+			setCalculatorResult(event);
+		}
 	});
 }
 
@@ -131,17 +158,17 @@ function handleCheckboxChange() {
 	}
 }
 
-dateOne.addEventListener('change', () => {
-	const selectedDate = new Date(dateOne.value);
-	if (!isNaN(selectedDate)) {
-		// Дозволяємо обрати дату в другому полі вводу тільки після вибору першої дати
-		dateTwo.min = formatDate(selectedDate);
-		// Очищаємо значення другого поля вводу, якщо воно менше встановленої мінімальної дати
-		if (new Date(dateTwo.value) <= selectedDate) {
-			dateTwo.value = '';
-		}
-	}
-});
+// dateOne.addEventListener('change', () => {
+// 	const selectedDate = new Date(dateOne.value);
+// 	if (!isNaN(selectedDate)) {
+// 		// Дозволяємо обрати дату в другому полі вводу тільки після вибору першої дати
+// 		dateTwo.min = formatDate(selectedDate);
+// 		// Очищаємо значення другого поля вводу, якщо воно менше встановленої мінімальної дати
+// 		if (new Date(dateTwo.value) <= selectedDate) {
+// 			dateTwo.value = '';
+// 		}
+// 	}
+// });
 
 
 // Функція для форматування дати
@@ -204,6 +231,7 @@ function toggleText(event) {
 	label.textContent = checkbox.checked ? 'Includes' : 'No includes';
 }
 
+
 // Функція для встановлення результату калькулятора
 function setCalculatorResult(event) {
 	event.preventDefault();
@@ -211,18 +239,16 @@ function setCalculatorResult(event) {
 	let firstDate = new Date(dateOne.value);
 	let secondDate = new Date(dateTwo.value);
 
-	if (checkbox1.checked) {
-		firstDate = new Date(firstDate);
-		firstDate.setDate(firstDate.getDate() + 1);
-	}
 
-	if (checkbox2.checked) {
-		secondDate = new Date(secondDate);
-		secondDate.setDate(secondDate.getDate() + 1);
-	}
 
 	if (isNaN(firstDate) || isNaN(secondDate)) {
-		resultOutput.innerText = `no date entered!`;
+		resultOutput.innerText = `No date entered!`;
+		return;
+	}
+
+	// Check if the dates are the same
+	if (firstDate.getTime() === secondDate.getTime()) {
+		resultOutput.innerText = `Dates are the same!`;
 		return;
 	}
 
@@ -234,6 +260,14 @@ function setCalculatorResult(event) {
 
 	let timeUnit = 'd';
 
+
+	if (!checkbox1.checked && !checkbox2.checked) { daysDifference -= 1 }
+	if (checkbox1.checked && checkbox2.checked) { daysDifference += 1 }
+
+
+
+
+
 	if (checkedPreset && checkedPreset.id === 'p_radio_2') {
 		daysDifference *= 24;
 		timeUnit = 'h';
@@ -244,6 +278,8 @@ function setCalculatorResult(event) {
 		daysDifference *= 24 * 60 * 60;
 		timeUnit = 's';
 	}
+
+
 
 	if (checkedAllow && checkedAllow.id === 'a_radio_1') {
 		const totalDays = Math.ceil(daysDifference);
@@ -265,9 +301,10 @@ function setCalculatorResult(event) {
 			generatorListresult(formatDateTwo(firstDate), formatDateTwo(secondDate), `${formattedDaysDifference} ${timeUnit}`);
 		}
 	} else {
-		resultOutput.innerText = 'no date entered';
+		resultOutput.innerText = 'No date entered';
 	}
 }
+
 
 // Функція для обробки зміни радіо-кнопок
 function handleRadioChange(event) {
