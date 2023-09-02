@@ -242,6 +242,18 @@ lock scroll .lock body {
   transition: all 0.25s ease-in-out 0s;
 }
 
+.checkbox__inp:checked + .checkbox__inner:hover::after,
+.checkbox__inp:checked + .checkbox__inner:hover::before {
+  -webkit-transition: all 0.2s ease-in 0s;
+  transition: all 0.2s ease-in 0s;
+}
+
+.checkbox__inp:checked + .checkbox__inner:hover::before {
+  -webkit-transition: all 0.2s ease-in 0s;
+  transition: all 0.2s ease-in 0s;
+  background: #F9D3D3;
+}
+
 .checkbox__inner {
   line-height: 1.5;
   letter-spacing: 0.225rem;
@@ -257,6 +269,19 @@ lock scroll .lock body {
   color: #AB32AD;
   -webkit-transition: all 0.2s ease-in 0s;
   transition: all 0.2s ease-in 0s;
+}
+
+.checkbox__inner:hover::before {
+  background: #DCEDDF;
+  -webkit-transition: all 0.2s ease-in 0s;
+  transition: all 0.2s ease-in 0s;
+  border: 0.0625rem solid #311067;
+}
+
+.checkbox__inner:hover::after {
+  -webkit-transition: all 0.2s ease-in 0s;
+  transition: all 0.2s ease-in 0s;
+  border: 0.0625rem solid #311067;
 }
 
 .checkbox__inner:active {
@@ -1063,8 +1088,8 @@ lock scroll .lock body {
     transition: all 0.2s ease-in-out 0s;
     -webkit-animation-timing-function: cubic-bezier(0.58, 0.21, 0.5, 0.86);
             animation-timing-function: cubic-bezier(0.58, 0.21, 0.5, 0.86);
-    -webkit-transform: rotateY(180deg) rotateX(-360deg) scale(0.9);
-            transform: rotateY(180deg) rotateX(-360deg) scale(0.9);
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
   }
 }
 

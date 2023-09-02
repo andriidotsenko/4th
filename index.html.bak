@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 
-	<link rel="stylesheet" type="text/css" href="css/style.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.min.css/?_v=20230902204435">
 
 	<link rel="shortcut icon" href="favicon.ico">
 
@@ -237,7 +237,7 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js"></script>
+	<script src="js/app.min.js?_v=20230902204435"></script>
 </body>
 
 </html>

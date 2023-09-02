@@ -82,6 +82,16 @@
                 currentDate.setMonth(currentDate.getMonth() + 1);
                 dateOne.value = formatDate(currentDate);
                 setCalculatorResult(event);
+            } else if (dateTwo.value && dateOne.value && dateTwo.value > dateOne.value) {
+                const currentDate = new Date(dateTwo.value);
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                dateTwo.value = formatDate(currentDate);
+                setCalculatorResult(event);
+            } else if (dateTwo.value && dateOne.value && dateTwo.value < dateOne.value) {
+                const currentDate = new Date(dateOne.value);
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                dateOne.value = formatDate(currentDate);
+                setCalculatorResult(event);
             }
         }));
         addWeekButton.addEventListener("click", (event => {
@@ -96,6 +106,16 @@
                 currentDate.setDate(currentDate.getDate() + 7);
                 dateTwo.value = formatDate(currentDate);
                 setCalculatorResult(event);
+            } else if (dateTwo.value && dateOne.value && dateTwo.value > dateOne.value) {
+                const currentDate = new Date(dateTwo.value);
+                currentDate.setDate(currentDate.getDate() + 7);
+                dateTwo.value = formatDate(currentDate);
+                setCalculatorResult(event);
+            } else if (dateTwo.value && dateOne.value && dateTwo.value < dateOne.value) {
+                const currentDate = new Date(dateOne.value);
+                currentDate.setDate(currentDate.getDate() + 7);
+                dateOne.value = formatDate(currentDate);
+                setCalculatorResult(event);
             }
         }));
     }
@@ -103,13 +123,6 @@
     function handleCheckboxChange() {
         if (dateOne.value && dateTwo.value) setCalculatorResult(event);
     }
-    dateOne.addEventListener("change", (() => {
-        const selectedDate = new Date(dateOne.value);
-        if (!isNaN(selectedDate)) {
-            dateTwo.min = formatDate(selectedDate);
-            if (new Date(dateTwo.value) <= selectedDate) dateTwo.value = "";
-        }
-    }));
     function formatDate(date) {
         const year = date.getFullYear();
         const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -155,16 +168,12 @@
         resultOutput.style.transform = "scale(1)";
         let firstDate = new Date(dateOne.value);
         let secondDate = new Date(dateTwo.value);
-        if (checkbox1.checked) {
-            firstDate = new Date(firstDate);
-            firstDate.setDate(firstDate.getDate() + 1);
-        }
-        if (checkbox2.checked) {
-            secondDate = new Date(secondDate);
-            secondDate.setDate(secondDate.getDate() + 1);
-        }
         if (isNaN(firstDate) || isNaN(secondDate)) {
-            resultOutput.innerText = `no date entered!`;
+            resultOutput.innerText = `No date entered!`;
+            return;
+        }
+        if (firstDate.getTime() === secondDate.getTime()) {
+            resultOutput.innerText = `Dates are the same!`;
             return;
         }
         let timeDifference = secondDate - firstDate;
@@ -172,6 +181,8 @@
         const checkedPreset = document.querySelector('.presets__radio input[name="radio-p"]:checked');
         const checkedAllow = document.querySelector('.allow__radio input[name="radio-allow"]:checked');
         let timeUnit = "d";
+        if (!checkbox1.checked && !checkbox2.checked) daysDifference -= 1;
+        if (checkbox1.checked && checkbox2.checked) daysDifference += 1;
         if (checkedPreset && checkedPreset.id === "p_radio_2") {
             daysDifference *= 24;
             timeUnit = "h";
@@ -196,7 +207,7 @@
             resultOutput.innerText = `= ${formattedDaysDifference} ${timeUnit}`;
             const existingObject = savedObjects.find((obj => obj.start === formatDateTwo(firstDate) && obj.end === formatDateTwo(secondDate) && obj.content === `${formattedDaysDifference} ${timeUnit}`));
             if (!existingObject) generatorListresult(formatDateTwo(firstDate), formatDateTwo(secondDate), `${formattedDaysDifference} ${timeUnit}`);
-        } else resultOutput.innerText = "no date entered";
+        } else resultOutput.innerText = "No date entered";
     }
     function handleRadioChange(event) {
         if (dateOne.value && dateTwo.value) setCalculatorResult(event);
