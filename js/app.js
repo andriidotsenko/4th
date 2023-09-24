@@ -287,7 +287,7 @@
     }
     tabsBtn[1].addEventListener("click", (() => {
         const errorMessage = document.querySelector(".error-message");
-        const apiKey = "f3ndXepmP15fIXlrybfXBOERiOlBdyVM";
+        const apiKey = "g2Y2TP5X06108CNQJQVsmyPa1Dt52BEH";
         const selectRegion = document.querySelector(".select-region");
         const selectYear = document.querySelector(".select-year");
         const outputsList = document.querySelector(".outputs__list");
