@@ -29,7 +29,7 @@ The application is deployed on GitHub Pages, allowing users to access it online.
 
 ## Language Support
 
-The interface supports both English and Ukrainian languages, providing flexibility to users.
+The interface supports English.
 
 ## How to Use
 
